@@ -1,338 +1,832 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ujjwal Patel — Data Scientist & ML Engineer</title>
-  <meta name="description" content="Ujjwal Patel — Data Scientist & ML Engineer. AWS, Spark, Snowflake, MLflow, Python, SQL. Predictive modeling, dashboards, and production ML systems." />
-  <meta property="og:title" content="Ujjwal Patel — Data Scientist & ML Engineer" />
-  <meta property="og:description" content="Predictive modeling • Big data • Cloud MLOps • Stakeholder-ready analytics" />
-  <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#0b1220" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ujjwal — ML Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400&family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg-2: #12121a;
+    --ink: #e8e6dc;
+    --ink-dim: #8a887e;
+    --accent: #d4ff3a;    /* electric lime */
+    --accent-2: #ff5c38;  /* signal orange */
+    --line: rgba(232, 230, 220, 0.08);
+    --line-strong: rgba(232, 230, 220, 0.22);
+    --serif: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+    --sans: 'Inter', -apple-system, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Subtle grain overlay for atmosphere */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    z-index: 100;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  /* Fixed nav rail */
+  .rail {
+    position: fixed;
+    top: 50%;
+    right: 32px;
+    transform: translateY(-50%);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .rail a {
+    display: block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--line-strong);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .rail a:hover, .rail a.active {
+    background: var(--accent);
+    transform: scale(1.4);
+  }
+  .rail a::after {
+    content: attr(data-label);
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-dim);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .rail a:hover::after { opacity: 1; }
+
+  /* Top meta bar */
+  .meta-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-dim);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    z-index: 40;
+    mix-blend-mode: difference;
+  }
+  .meta-bar .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 8px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Section base */
+  section {
+    min-height: 100vh;
+    padding: 120px 60px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .act-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-dim);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.8s ease;
+  }
+  .act-label.in { opacity: 1; transform: translateY(0); }
+  .act-label::before {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    vertical-align: middle;
+    margin-right: 14px;
+  }
+
+  /* =============== ACT 1: HOOK =============== */
+  .hook {
+    min-height: 100vh;
+  }
+  .hook-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 80px;
+    align-items: end;
+  }
+  .hook h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(3rem, 8vw, 7.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: 40px;
+  }
+  .hook h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .hook h1 .cursor {
+    display: inline-block;
+    width: 0.5ch;
+    height: 0.85em;
+    background: var(--accent);
+    vertical-align: text-bottom;
+    animation: blink 1s steps(2) infinite;
+    margin-left: 4px;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .hook-terminal {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink-dim);
+    border-left: 1px solid var(--line-strong);
+    padding: 24px 28px;
+    line-height: 1.9;
+  }
+  .hook-terminal .prompt { color: var(--accent); }
+  .hook-terminal .output { color: var(--ink); }
+  .hook-terminal .comment { color: var(--ink-dim); font-style: italic; }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .scroll-hint::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: var(--ink-dim);
+    animation: slide 2s ease-in-out infinite;
+    transform-origin: left;
+  }
+  @keyframes slide {
+    0%, 100% { transform: scaleX(0.3); opacity: 0.3; }
+    50% { transform: scaleX(1); opacity: 1; }
+  }
+
+  /* =============== ACT 2: STACK / NEURAL NET =============== */
+  .stack {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .stack h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    max-width: 800px;
+  }
+  .stack h2 em { font-style: italic; color: var(--accent); }
+  .stack-sub {
+    color: var(--ink-dim);
+    max-width: 520px;
+    margin: 0 auto 60px;
+    font-size: 15px;
+  }
+
+  .neural-svg {
+    width: min(720px, 90vw);
+    height: 420px;
+    display: block;
+    margin: 0 auto;
+  }
+  .neural-svg .link {
+    stroke: var(--line-strong);
+    stroke-width: 1;
+    fill: none;
+    stroke-dasharray: 4 4;
+    opacity: 0;
+    transition: opacity 1.2s ease, stroke 0.6s;
+  }
+  .stack.in .neural-svg .link { opacity: 1; animation: flow 4s linear infinite; }
+  @keyframes flow {
+    to { stroke-dashoffset: -80; }
+  }
+  .neural-svg .node {
+    fill: var(--bg-2);
+    stroke: var(--ink);
+    stroke-width: 1;
+    transition: all 0.3s;
+  }
+  .neural-svg .node.active {
+    fill: var(--accent);
+    stroke: var(--accent);
+  }
+  .neural-svg .node-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    fill: var(--ink-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .neural-svg .center-label {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 20px;
+    fill: var(--ink);
+  }
+
+  /* =============== ACT 3: PROJECTS =============== */
+  .projects {
+    max-width: 1200px;
+  }
+  .projects h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 80px;
+    max-width: 700px;
+  }
+  .projects h2 em { font-style: italic; color: var(--accent); }
+
+  .case-study {
+    display: grid;
+    grid-template-columns: 80px 1fr 1.2fr;
+    gap: 40px;
+    padding: 48px 0;
+    border-top: 1px solid var(--line);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+  .case-study.in { opacity: 1; transform: translateY(0); }
+  .case-study:last-child { border-bottom: 1px solid var(--line); }
+
+  .case-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-dim);
+    letter-spacing: 0.15em;
+  }
+  .case-num .big {
+    display: block;
+    font-family: var(--serif);
+    font-size: 48px;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 8px;
+    font-weight: 300;
+  }
+
+  .case-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+  }
+  .case-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .case-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-dim);
+    border: 1px solid var(--line-strong);
+    padding: 4px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
+  .case-link {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 2px;
+    transition: all 0.2s;
+  }
+  .case-link:hover { color: var(--ink); border-color: var(--ink); }
+
+  .case-body dl {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 10px 20px;
+    font-size: 14px;
+  }
+  .case-body dt {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding-top: 4px;
+  }
+  .case-body dd {
+    color: var(--ink);
+    line-height: 1.55;
+  }
+
+  /* =============== ACT 4: THE TWIST =============== */
+  .twist {
+    background: linear-gradient(180deg, transparent 0%, var(--bg-2) 50%, transparent 100%);
+    margin: 0 -60px;
+    padding: 180px 60px;
+    max-width: none;
+  }
+  .twist-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .twist h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 40px;
+  }
+  .twist h2 .strike {
+    color: var(--ink-dim);
+    text-decoration: line-through;
+    text-decoration-color: var(--accent-2);
+    text-decoration-thickness: 2px;
+    font-style: normal;
+  }
+  .twist-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .twist-body p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  .twist-body p + p { margin-top: 18px; }
+  .twist-aside {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink-dim);
+    border-left: 2px solid var(--accent-2);
+    padding: 16px 24px;
+    line-height: 1.8;
+  }
+  .twist-aside strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* =============== ACT 5: CONTACT =============== */
+  .contact {
+    text-align: center;
+    align-items: center;
+    min-height: 90vh;
+  }
+  .contact h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+    max-width: 900px;
+  }
+  .contact h2 em { font-style: italic; color: var(--accent); }
+  .contact-sub {
+    color: var(--ink-dim);
+    max-width: 480px;
+    margin: 0 auto 56px;
+    font-size: 16px;
+  }
+  .contact-links {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .c-btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--line-strong);
+    padding: 14px 24px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+  }
+  .c-btn:hover {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+  .c-btn.primary {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+  .c-btn.primary:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+
+  footer {
+    padding: 60px;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* ========== Mobile ========== */
+  @media (max-width: 820px) {
+    section { padding: 80px 28px; }
+    .meta-bar { padding: 16px 20px; font-size: 10px; }
+    .meta-bar .right { display: none; }
+    .rail { right: 16px; }
+    .hook-grid { grid-template-columns: 1fr; gap: 40px; }
+    .case-study { grid-template-columns: 1fr; gap: 20px; padding: 36px 0; }
+    .twist { margin: 0 -28px; padding: 100px 28px; }
+    .twist-body { grid-template-columns: 1fr; gap: 32px; }
+    .scroll-hint { left: 28px; bottom: 28px; }
+    footer { padding: 40px 28px; flex-direction: column; gap: 12px; }
+  }
+</style>
 </head>
 <body>
-  <div class="bg-blobs" aria-hidden="true">
-    <div class="blob b1"></div>
-    <div class="blob b2"></div>
-    <div class="blob b3"></div>
+
+<!-- META BAR -->
+<div class="meta-bar">
+  <div><span class="dot"></span>UJJWAL / ML ENGINEER</div>
+  <div class="right">PORTFOLIO — V1 — 2026</div>
+</div>
+
+<!-- RAIL NAV -->
+<nav class="rail">
+  <a href="#hook" data-label="Intro" class="active"></a>
+  <a href="#stack" data-label="Stack"></a>
+  <a href="#projects" data-label="Work"></a>
+  <a href="#twist" data-label="Range"></a>
+  <a href="#contact" data-label="Contact"></a>
+</nav>
+
+<!-- ================= ACT 1 ================= -->
+<section id="hook" class="hook">
+  <div class="act-label">Act 01 — Introduction</div>
+  <div class="hook-grid">
+    <div>
+      <h1>
+        I build <em>learning systems</em><br>
+        that do things<br>
+        in the real world<span class="cursor"></span>
+      </h1>
+    </div>
+    <div class="hook-terminal">
+      <div><span class="prompt">$</span> whoami</div>
+      <div class="output">ujjwal — ml engineer</div>
+      <br>
+      <div><span class="prompt">$</span> cat interests.txt</div>
+      <div class="output">multi-agent systems</div>
+      <div class="output">computer vision</div>
+      <div class="output">distributed backends</div>
+      <br>
+      <div><span class="prompt">$</span> echo $STATUS</div>
+      <div class="output">open to opportunities</div>
+      <br>
+      <div class="comment"># scroll to continue →</div>
+    </div>
   </div>
+  <div class="scroll-hint">SCROLL</div>
+</section>
 
-  <header class="topbar">
-    <a class="brand" href="#top" aria-label="Home">
-      <span class="dot"></span>
-      <span>Ujjwal Patel</span>
-    </a>
+<!-- ================= ACT 2 ================= -->
+<section id="stack" class="stack">
+  <div class="act-label">Act 02 — The Stack</div>
+  <h2>A toolkit assembled for <em>shipping</em>, not just experimenting.</h2>
+  <p class="stack-sub">Python at the center. Go when latency matters. Modern LLM tooling when the problem calls for it.</p>
 
-    <nav class="nav" aria-label="Primary">
-      <a href="#about">About</a>
-      <a href="#impact">Impact</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#certs">Certs</a>
-      <a class="btn small" href="#contact">Contact</a>
-    </nav>
+  <svg class="neural-svg" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg">
+    <!-- Connecting lines -->
+    <g>
+      <line class="link" x1="360" y1="210" x2="120" y2="80"/>
+      <line class="link" x1="360" y1="210" x2="120" y2="210"/>
+      <line class="link" x1="360" y1="210" x2="120" y2="340"/>
+      <line class="link" x1="360" y1="210" x2="600" y2="80"/>
+      <line class="link" x1="360" y1="210" x2="600" y2="210"/>
+      <line class="link" x1="360" y1="210" x2="600" y2="340"/>
+      <line class="link" x1="360" y1="210" x2="360" y2="60"/>
+      <line class="link" x1="360" y1="210" x2="360" y2="360"/>
+    </g>
 
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </header>
+    <!-- Outer nodes -->
+    <g>
+      <circle class="node active" cx="120" cy="80" r="32"/>
+      <text x="120" y="84" text-anchor="middle" class="node-label" style="fill:var(--bg);font-weight:700;">PyTorch</text>
 
-  <main id="top">
-    <section class="hero">
-      <div class="hero-inner">
-        <div class="kicker">
-          <span class="pill">Data Scientist</span>
-          <span class="pill">ML Engineer</span>
-          <span class="pill">AWS • Spark • Snowflake</span>
-        </div>
+      <circle class="node" cx="120" cy="210" r="32"/>
+      <text x="120" y="214" text-anchor="middle" class="node-label">LangGraph</text>
 
-        <h1 class="headline">
-          Building <span class="grad">production ML</span> and
-          <span class="grad">analytics</span> that move metrics.
-        </h1>
+      <circle class="node" cx="120" cy="340" r="32"/>
+      <text x="120" y="344" text-anchor="middle" class="node-label">EfficientNet</text>
 
-        <p class="subhead">
-          Master’s candidate (CS, May 2026) with 3+ years of hands-on data science experience in Python, SQL, R, and machine learning.
-          I work end-to-end: data → modeling → dashboards → deployment.
-        </p>
+      <circle class="node" cx="600" cy="80" r="32"/>
+      <text x="600" y="84" text-anchor="middle" class="node-label">Go</text>
 
-        <div class="cta-row">
-          <a class="btn" href="resume.pdf" download>Download Resume</a>
-          <a class="btn ghost" href="https://github.com/ujjwal0909" target="_blank" rel="noreferrer">GitHub</a>
-          <a class="btn ghost" href="https://www.linkedin.com/in/ujjwalp09/" target="_blank" rel="noreferrer">LinkedIn</a>
-        </div>
+      <circle class="node active" cx="600" cy="210" r="32"/>
+      <text x="600" y="214" text-anchor="middle" class="node-label" style="fill:var(--bg);font-weight:700;">gRPC</text>
 
-        <div class="meta">
-          <span>Santa Clara, CA</span>
-          <span class="sep">•</span>
-          <span>Open to Relocate</span>
-          <span class="sep">•</span>
-          <a href="mailto:ujjwalpersonal09@gmail.com">ujjwalpersonal09@gmail.com</a>
-        </div>
+      <circle class="node" cx="600" cy="340" r="32"/>
+      <text x="600" y="344" text-anchor="middle" class="node-label">Docker</text>
+
+      <circle class="node" cx="360" cy="60" r="28"/>
+      <text x="360" y="64" text-anchor="middle" class="node-label">Gemini</text>
+
+      <circle class="node" cx="360" cy="360" r="28"/>
+      <text x="360" y="364" text-anchor="middle" class="node-label">Pandas</text>
+    </g>
+
+    <!-- Center node -->
+    <g>
+      <circle cx="360" cy="210" r="58" fill="var(--bg)" stroke="var(--accent)" stroke-width="1.5"/>
+      <circle cx="360" cy="210" r="48" fill="none" stroke="var(--accent)" stroke-width="0.5" opacity="0.4"/>
+      <text x="360" y="206" text-anchor="middle" class="center-label">shipped</text>
+      <text x="360" y="226" text-anchor="middle" class="center-label">code</text>
+    </g>
+  </svg>
+</section>
+
+<!-- ================= ACT 3 ================= -->
+<section id="projects" class="projects">
+  <div class="act-label">Act 03 — Selected Work</div>
+  <h2>Four projects. Four different problems. <em>One engineer.</em></h2>
+
+  <!-- Project 01 -->
+  <article class="case-study">
+    <div class="case-num">
+      <span class="big">01</span>
+      2026
+    </div>
+    <div>
+      <h3 class="case-title">Multi-Agent AI System</h3>
+      <div class="case-tags">
+        <span class="case-tag">Python</span>
+        <span class="case-tag">LLMs</span>
+        <span class="case-tag">Agents</span>
       </div>
+      <a class="case-link" href="https://github.com/ujjwal0909/Multi-Agent-AI-System" target="_blank">view repo →</a>
+    </div>
+    <div class="case-body">
+      <dl>
+        <dt>Problem</dt>
+        <dd>Single-LLM prompts break down on tasks that need planning, tool use, and delegation.</dd>
+        <dt>Approach</dt>
+        <dd>Orchestrated specialist agents with shared memory and a supervisor routing messages between them.</dd>
+        <dt>Outcome</dt>
+        <dd>Complex multi-step tasks completed reliably without manual prompt-chaining.</dd>
+      </dl>
+    </div>
+  </article>
 
-      <div class="hero-card" role="presentation">
-        <div class="card-top">
-          <div class="chip">Selected highlights</div>
-          <div class="chip subtle">Last updated: 2026</div>
-        </div>
-
-        <div class="stats">
-          <div class="stat">
-            <div class="stat-num">35%</div>
-            <div class="stat-label">predictive accuracy lift</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">45%</div>
-            <div class="stat-label">faster reporting turnaround</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">150K+</div>
-            <div class="stat-label">records per batch analyzed</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">84.12%</div>
-            <div class="stat-label">DL model accuracy</div>
-          </div>
-        </div>
-
-        <div class="card-bottom">
-          <div class="mini">
-            <div class="mini-title">Focus areas</div>
-            <div class="mini-tags">
-              <span>Predictive modeling</span>
-              <span>Experimentation</span>
-              <span>MLOps</span>
-              <span>Dashboards</span>
-              <span>Big data</span>
-            </div>
-          </div>
-        </div>
+  <!-- Project 02 -->
+  <article class="case-study">
+    <div class="case-num">
+      <span class="big">02</span>
+      2025
+    </div>
+    <div>
+      <h3 class="case-title">Distributed Online Auction Platform</h3>
+      <div class="case-tags">
+        <span class="case-tag">Go</span>
+        <span class="case-tag">Distributed</span>
+        <span class="case-tag">Concurrency</span>
       </div>
-    </section>
+      <a class="case-link" href="https://github.com/ujjwal0909/Distributed-Online-Auction-Platform" target="_blank">view repo →</a>
+    </div>
+    <div class="case-body">
+      <dl>
+        <dt>Problem</dt>
+        <dd>Real-time auctions require consistent state across many concurrent bidders.</dd>
+        <dt>Approach</dt>
+        <dd>Built in Go with concurrent bid handling, service coordination, and a replication strategy for fault tolerance.</dd>
+        <dt>Outcome</dt>
+        <dd>Handles simultaneous bidders without race conditions or lost bids.</dd>
+      </dl>
+    </div>
+  </article>
 
-    <section id="about" class="section">
-      <div class="section-head">
-        <h2>About</h2>
-        <p>Clear, outcome-driven analytics for both technical and non-technical stakeholders.</p>
+  <!-- Project 03 -->
+  <article class="case-study">
+    <div class="case-num">
+      <span class="big">03</span>
+      2025
+    </div>
+    <div>
+      <h3 class="case-title">Telematics-Based Auto Insurance</h3>
+      <div class="case-tags">
+        <span class="case-tag">Python</span>
+        <span class="case-tag">Feature Eng</span>
+        <span class="case-tag">Risk Modeling</span>
       </div>
+      <a class="case-link" href="https://github.com/ujjwal0909/Telematics-based-auto-insurance" target="_blank">view repo →</a>
+    </div>
+    <div class="case-body">
+      <dl>
+        <dt>Problem</dt>
+        <dd>Traditional auto premiums ignore how the driver actually drives.</dd>
+        <dt>Approach</dt>
+        <dd>Engineered features from trip-level telematics data and trained a risk model correlating behavior with claim likelihood.</dd>
+        <dt>Outcome</dt>
+        <dd>A pipeline insurers could plug into existing underwriting workflows.</dd>
+      </dl>
+    </div>
+  </article>
 
-      <div class="grid two">
-        <div class="panel">
-          <h3>What I do</h3>
-          <p>
-            I consolidate large structured & unstructured datasets, build predictive models,
-            run statistical evaluation/hypothesis tests, and ship ML to cloud environments.
-          </p>
-          <ul class="bullets">
-            <li>Python/SQL pipelines, feature engineering, model training & tuning</li>
-            <li>AWS deployment with tracking/monitoring (MLflow, Docker)</li>
-            <li>Stakeholder-ready Power BI/Excel reporting and KPI dashboards</li>
-          </ul>
-        </div>
-
-        <div class="panel">
-          <h3>What I’m looking for</h3>
-          <p>
-            Advanced analytics roles in manufacturing/materials, where data quality, process understanding,
-            and rigorous experimentation create real-world impact.
-          </p>
-          <div class="callout">
-            <div class="callout-title">Recruiter note</div>
-            <div class="callout-body">
-              If you’re hiring for ML + analytics in complex systems (production, operations, quality, supply chain),
-              I’m a strong fit.
-            </div>
-          </div>
-        </div>
+  <!-- Project 04 -->
+  <article class="case-study">
+    <div class="case-num">
+      <span class="big">04</span>
+      2025
+    </div>
+    <div>
+      <h3 class="case-title">EfficientNet Bird Species Classifier</h3>
+      <div class="case-tags">
+        <span class="case-tag">PyTorch</span>
+        <span class="case-tag">CV</span>
+        <span class="case-tag">Transfer Learning</span>
       </div>
-    </section>
+      <a class="case-link" href="https://github.com/ujjwal0909/efficientnet-bird-species-classifier" target="_blank">view repo →</a>
+    </div>
+    <div class="case-body">
+      <dl>
+        <dt>Problem</dt>
+        <dd>Fine-grained image classification where species look nearly identical.</dd>
+        <dt>Approach</dt>
+        <dd>Fine-tuned EfficientNet with targeted augmentation and a class-balanced sampling strategy.</dd>
+        <dt>Outcome</dt>
+        <dd>Strong top-1 accuracy on an imbalanced, long-tail dataset.</dd>
+      </dl>
+    </div>
+  </article>
+</section>
 
-    <section id="impact" class="section">
-      <div class="section-head">
-        <h2>Impact</h2>
-        <p>Work highlights summarized for quick scanning.</p>
+<!-- ================= ACT 4 ================= -->
+<section id="twist" class="twist">
+  <div class="twist-inner">
+    <div class="act-label">Act 04 — The Range</div>
+    <h2>Most ML engineers stop at the model.<br><span class="strike">I don't.</span></h2>
+    <div class="twist-body">
+      <div>
+        <p>A trained model is the middle of the story, not the end. The auction platform in Go wasn't a detour from ML work — it was the part most ML portfolios leave out.</p>
+        <p>Distributed systems, concurrency, API design, deployment. The stuff that takes a model from a notebook to something a business can actually use.</p>
       </div>
-
-      <div class="grid three">
-        <div class="panel lift">
-          <h3>Devai Technologies</h3>
-          <p class="muted">Data Scientist & ML Engineer (Jul 2022 – Jul 2024)</p>
-          <ul class="bullets">
-            <li>Cleaned/integrated 20K–150K+ records per batch; improved predictive accuracy by <b>35%</b></li>
-            <li>Built models across regression/classification/clustering/forecasting</li>
-            <li>Power BI reporting: <b>45%</b> faster turnaround and clearer stakeholder communication</li>
-            <li>AWS deployments with MLflow tracking, Docker, and monitoring</li>
-          </ul>
-        </div>
-
-        <div class="panel lift">
-          <h3>Strengths</h3>
-          <ul class="bullets">
-            <li>Applied statistics: hypothesis testing, A/B testing, evaluation rigor</li>
-            <li>MLOps mindset: reproducibility, experiment tracking, CI/CD awareness</li>
-            <li>Big data familiarity: Spark, Snowflake, scalable workflows</li>
-          </ul>
-        </div>
-
-        <div class="panel lift">
-          <h3>Toolbox</h3>
-          <div class="tagcloud">
-            <span>Python</span><span>SQL</span><span>R</span><span>Spark</span><span>Snowflake</span>
-            <span>AWS</span><span>MLflow</span><span>Docker</span><span>XGBoost</span><span>PyTorch</span>
-            <span>TensorFlow</span><span>Power BI</span><span>Excel</span>
-          </div>
-        </div>
+      <div class="twist-aside">
+        <strong>What this means in practice:</strong><br><br>
+        → I can take a model from idea to deployed endpoint<br>
+        → I think about latency, not just accuracy<br>
+        → I write Go when the task calls for it<br>
+        → I debug production, not just Jupyter cells
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <section id="projects" class="section">
-      <div class="section-head">
-        <h2>Featured Projects</h2>
-        <p>Swap in your exact repo links when ready — the layout is built for it.</p>
-      </div>
+<!-- ================= ACT 5 ================= -->
+<section id="contact" class="contact">
+  <div class="act-label">Act 05 — Let's Talk</div>
+  <h2>Hiring for an <em>ML role</em><br>that needs someone<br>who ships?</h2>
+  <p class="contact-sub">I'm open to new-grad and early-career ML engineering roles. Remote or on-site.</p>
+  <div class="contact-links">
+    <a class="c-btn primary" href="mailto:your.email@example.com">→ Email me</a>
+    <a class="c-btn" href="https://github.com/ujjwal0909" target="_blank">GitHub</a>
+    <a class="c-btn" href="#" target="_blank">LinkedIn</a>
+    <a class="c-btn" href="#" target="_blank">Resume (PDF)</a>
+  </div>
+</section>
 
-      <div class="projects">
-        <article class="project">
-          <div class="project-top">
-            <h3>Telematics Insurance Prediction Dashboard</h3>
-            <div class="project-badges">
-              <span>50K+ records</span>
-              <span>+12% accuracy</span>
-              <span>Power BI</span>
-            </div>
-          </div>
-          <p>
-            End-to-end modeling + reporting pipeline with feature engineering, hypothesis testing, and KPI dashboards.
-          </p>
-          <div class="project-actions">
-            <a class="btn small ghost" href="https://github.com/ujjwal0909" target="_blank" rel="noreferrer">Repo</a>
-            <a class="btn small" href="#contact">Request demo</a>
-          </div>
-        </article>
+<footer>
+  <div>© 2026 Ujjwal · Built with HTML &amp; restraint</div>
+  <div>Last deploy — <span id="deploy-date">Apr 2026</span></div>
+</footer>
 
-        <article class="project">
-          <div class="project-top">
-            <h3>Multi‑Agent AI Reasoning System</h3>
-            <div class="project-badges">
-              <span>1,000+/day</span>
-              <span>18% → &lt;4% error</span>
-              <span>99%+ validation</span>
-            </div>
-          </div>
-          <p>
-            Consolidated multiple sources with strong validation workflows, iterative experimentation, and reliable responses.
-          </p>
-          <div class="project-actions">
-            <a class="btn small ghost" href="https://github.com/ujjwal0909" target="_blank" rel="noreferrer">Repo</a>
-            <a class="btn small" href="#contact">Discuss details</a>
-          </div>
-        </article>
+<script>
+  // ============ Scroll-triggered reveals ============
+  const revealEls = document.querySelectorAll('.act-label, .case-study, .stack');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
 
-        <article class="project">
-          <div class="project-top">
-            <h3>Bird Species Classification (Deep Learning)</h3>
-            <div class="project-badges">
-              <span>200 classes</span>
-              <span>~20K images</span>
-              <span>84.12% accuracy</span>
-            </div>
-          </div>
-          <p>
-            EfficientNet transfer learning with rigorous CV and tuning. Packaged artifacts with Docker for reproducible runs.
-          </p>
-          <div class="project-actions">
-            <a class="btn small ghost" href="https://github.com/ujjwal0909" target="_blank" rel="noreferrer">Repo</a>
-            <a class="btn small" href="#contact">See write‑up</a>
-          </div>
-        </article>
-      </div>
-    </section>
+  // ============ Rail nav active state ============
+  const sections = document.querySelectorAll('section');
+  const railLinks = document.querySelectorAll('.rail a');
+  const railObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.getAttribute('id');
+        railLinks.forEach(l => l.classList.remove('active'));
+        const match = document.querySelector(`.rail a[href="#${id}"]`);
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => railObserver.observe(s));
 
-    <section id="skills" class="section">
-      <div class="section-head">
-        <h2>Skills</h2>
-        <p>Stack aligned with data science, big data, and cloud deployment.</p>
-      </div>
+  // ============ Neural net: pulse random nodes ============
+  const nodes = document.querySelectorAll('.neural-svg .node');
+  setInterval(() => {
+    nodes.forEach(n => n.classList.remove('active'));
+    const shuffled = [...nodes].sort(() => 0.5 - Math.random());
+    shuffled.slice(0, 2).forEach(n => n.classList.add('active'));
+    // update label fill for active nodes
+    document.querySelectorAll('.neural-svg g text').forEach(t => {
+      const prev = t.previousElementSibling;
+      if (prev && prev.classList && prev.classList.contains('active')) {
+        t.style.fill = 'var(--bg)';
+        t.style.fontWeight = '700';
+      } else {
+        t.style.fill = '';
+        t.style.fontWeight = '';
+      }
+    });
+  }, 2200);
 
-      <div class="grid two">
-        <div class="panel">
-          <h3>ML & Statistics</h3>
-          <div class="tagcloud">
-            <span>Classification</span><span>Regression</span><span>Clustering</span><span>Forecasting</span>
-            <span>Recommendation</span><span>Hypothesis testing</span><span>Data mining</span><span>A/B testing</span>
-            <span>Feature engineering</span><span>Hyperparameter tuning</span>
-          </div>
-        </div>
+  // ============ Hook terminal: type the output lines on load ============
+  // (kept simple — rely on CSS for the cursor blink)
+</script>
 
-        <div class="panel">
-          <h3>Platforms & Tools</h3>
-          <div class="tagcloud">
-            <span>AWS (S3/EC2/SageMaker)</span><span>Spark</span><span>Snowflake</span><span>Databricks</span>
-            <span>MLflow</span><span>Docker</span><span>CI/CD</span><span>Power BI</span><span>Tableau</span><span>Excel</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="certs" class="section">
-      <div class="section-head">
-        <h2>Certifications</h2>
-        <p>Proof of hands-on learning and structured training.</p>
-      </div>
-
-      <div class="grid three">
-        <div class="panel">
-          <h3>OCI 2025</h3>
-          <p class="muted">Generative AI Professional & AI Foundations Associate</p>
-        </div>
-        <div class="panel">
-          <h3>Google Cloud</h3>
-          <p class="muted">13+ skill badges (BigQuery ML, Cloud SQL, ML APIs, DevOps)</p>
-        </div>
-        <div class="panel">
-          <h3>Project Mgmt</h3>
-          <p class="muted">Google PM (Coursera) — Agile, Scrum, milestones & stakeholder comms</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section">
-      <div class="section-head">
-        <h2>Contact</h2>
-        <p>Let’s talk roles, projects, or collaboration.</p>
-      </div>
-
-      <div class="contact">
-        <a class="contact-card" href="mailto:ujjwalpersonal09@gmail.com">
-          <div class="contact-title">Email</div>
-          <div class="contact-value">ujjwalpersonal09@gmail.com</div>
-        </a>
-        <a class="contact-card" href="https://www.linkedin.com/in/ujjwalp09/" target="_blank" rel="noreferrer">
-          <div class="contact-title">LinkedIn</div>
-          <div class="contact-value">linkedin.com/in/ujjwalp09</div>
-        </a>
-        <a class="contact-card" href="https://github.com/ujjwal0909" target="_blank" rel="noreferrer">
-          <div class="contact-title">GitHub</div>
-          <div class="contact-value">github.com/ujjwal0909</div>
-        </a>
-      </div>
-
-      <div class="footnote">
-        <a class="btn" href="resume.pdf" download>Download Resume</a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div>© <span id="year"></span> Ujjwal Patel</div>
-    <div class="muted">Built with HTML/CSS/JS • Deployed on Netlify</div>
-  </footer>
-
-  <script src="assets/main.js"></script>
 </body>
 </html>

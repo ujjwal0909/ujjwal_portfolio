@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ujjwal0909.github.io/ujjwal_portfolio/sitemap.xml

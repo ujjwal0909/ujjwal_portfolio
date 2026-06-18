@@ -6,7 +6,61 @@
    ===================================================================== */
 
 const { useState, useEffect, useRef, useCallback } = React;
-const { motion, AnimatePresence, useScroll, useSpring } = window.Motion;
+
+/* ------------------------------------------------------------------ */
+/*  Framer Motion resolver                                             */
+/*  The UMD build can register under different global names depending  */
+/*  on the CDN ("framer-motion", "Motion", "FramerMotion", ...).       */
+/*  We locate it robustly, and if it's missing we fall back to plain   */
+/*  DOM elements so the site ALWAYS renders (just without animation).  */
+/* ------------------------------------------------------------------ */
+const FM = (function resolveFramerMotion() {
+  const candidates = [
+    window.Motion,
+    window["framer-motion"],
+    window.FramerMotion,
+    window.framerMotion,
+  ];
+  for (const c of candidates) {
+    if (c && (c.motion || c.m)) return c;
+  }
+  return null;
+})();
+
+const motion = (function () {
+  if (FM && FM.motion) return FM.motion;
+  // Fallback: motion.<tag> -> a component that renders <tag> and ignores motion-only props.
+  const MOTION_PROPS = new Set([
+    "initial", "animate", "exit", "whileInView", "whileHover", "whileTap", "whileFocus",
+    "variants", "custom", "transition", "viewport", "layout", "layoutId", "drag",
+    "dragConstraints", "onViewportEnter", "onViewportLeave",
+  ]);
+  const cache = {};
+  const make = (tag) =>
+    React.forwardRef((props, ref) => {
+      const clean = {};
+      for (const k in props) {
+        if (k === "children") continue;
+        if (MOTION_PROPS.has(k)) continue;
+        clean[k] = props[k];
+      }
+      return React.createElement(tag, Object.assign({ ref }, clean), props.children);
+    });
+  return new Proxy({}, {
+    get(_t, prop) {
+      const tag = typeof prop === "string" ? prop : "div";
+      return (cache[tag] = cache[tag] || make(tag));
+    },
+  });
+})();
+
+const AnimatePresence = (FM && FM.AnimatePresence) || (({ children }) => React.createElement(React.Fragment, null, children));
+const useScroll = (FM && FM.useScroll) || (() => ({ scrollYProgress: { get: () => 0, on: () => () => {}, current: 0 } }));
+const useSpring = (FM && FM.useSpring) || ((v) => v);
+
+if (!FM) {
+  console.warn("Framer Motion not found on window — rendering without animations (site is fully functional).");
+}
 
 /* ------------------------------------------------------------------ */
 /*  CONFIG — edit these if any contact detail changes                  */
@@ -1233,6 +1287,8 @@ function Footer() {
 /*  SCROLL PROGRESS BAR + BACK TO TOP                                  */
 /* ================================================================== */
 function ScrollProgress() {
+  // Only render the animated progress bar when real Framer Motion is available.
+  if (!FM || !FM.useScroll) return null;
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 });
   return <motion.div style={{ scaleX }} className="fixed top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-soft to-accent-deep origin-left z-[60]" />;

@@ -56,8 +56,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js" crossorigin></script>
   <script src="https://cdn.tailwindcss.com/3.4.1"></script>
-  <!-- Framer Motion (UMD) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/11.0.8/framer-motion.umd.min.js" crossorigin></script>
+  <!-- Framer Motion (UMD). NOTE: this build registers the global as
+       window["framer-motion"]. app.js normalizes it to window.Motion and
+       falls back to no-op components if it ever fails to load. -->
+  <script src="https://unpkg.com/framer-motion@11.0.8/dist/framer-motion.js" crossorigin></script>
 
   <!-- Fonts: modern typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />

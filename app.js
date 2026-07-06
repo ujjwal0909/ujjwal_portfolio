@@ -70,12 +70,13 @@ const CONFIG = {
   initials: "UP",
   headline: "AI/ML Engineer",
   roles: ["AI Engineer", "Machine Learning Engineer", "Data Scientist", "Data Analyst", "Software Engineer"],
-  email: "ujjwalpersonal09@gmail.com",
+  email: "patelujjwal524@gmail.com",
   phone: "+1 (469) 494-2266",
   github: "https://github.com/ujjwal0909",
   githubUser: "ujjwal0909",
   linkedin: "https://linkedin.com/in/ujjwal-patel09",
-  resume: "Ujjwal_Patel_Resume.pdf",
+  resume: "Ujjwal_Patel_Resume_2026.pdf",
+  resumeDownloadName: "Ujjwal_Patel_Resume.pdf",
   location: "Arlington, Texas, USA",
   // 🔧 Replace with your Formspree form ID (https://formspree.io) — e.g. "xpzgkqwl"
   formspreeId: "YOUR_FORMSPREE_ID",
@@ -86,41 +87,70 @@ const CONFIG = {
 /* ------------------------------------------------------------------ */
 const ABOUT = {
   intro:
-    "I'm an AI/ML Engineer who builds machine-learning systems that survive contact with production. Over three years at Devai Technologies I shipped LLM-powered pipelines, computer-vision models, and the MLOps infrastructure that keeps them reliable — from real-time feature stores to drift-triggered retraining.",
+    "I'm an ML/AI Engineer with experience across Meta, NVIDIA, and IBM, building and deploying machine-learning systems that run reliably at scale — from predictive-maintenance and computer-vision models to fine-tuned LLMs, conversational AI agents, and graph-neural-network recommendation systems.",
   body:
-    "I'm currently completing my Master of Science in Computer Science at the University of Texas at Arlington (graduating May 2026), with graduate coursework in Machine Learning, Artificial Intelligence, NLP, Distributed Systems, and Cloud Computing. My work sits at the intersection of applied research and engineering: fine-tuning vision models through systematic ablation, architecting RAG systems that return cited answers, and standing up Docker/Kubernetes/CI-CD pipelines so models actually reach users.",
+    "I'm currently completing my Master of Science in Computer Science at the University of Texas at Arlington (graduating May 2026). My work spans the full lifecycle: real-time ML pipelines and GPU/model optimization, reinforcement-learning resource optimization for distributed compute, and MLOps workflows on Docker, Kubernetes, and MLflow that cut deployment time while keeping models reproducible and production-ready.",
   passion:
-    "What drives me is the unglamorous part of AI — evaluation frameworks, structured-output schemas, and the routing logic that turns a flashy demo into something dependable. I care deeply about Generative AI, Large Language Models, computer vision, and the data engineering that underpins all of it.",
+    "What drives me is the engineering that makes AI dependable — evaluation pipelines, reproducible MLOps, and model optimization that turns a research result into something that ships. I care deeply about Generative AI, Large Language Models, computer vision, and the data engineering that underpins all of it.",
   goal:
     "I'm seeking AI Engineer, Machine Learning Engineer, Data Scientist, or Software Engineer roles where I can take models the whole way — from problem framing and experimentation to a deployed system with measurable impact.",
 };
 
 const SKILL_GROUPS = [
-  { title: "Programming Languages", icon: "code", items: ["Python", "SQL", "R", "Bash / Shell", "C++", "Java"] },
-  { title: "Machine Learning & AI", icon: "brain", items: ["Supervised Learning", "Unsupervised Learning", "Deep Learning", "Computer Vision", "NLP", "Generative AI", "Large Language Models", "Reinforcement Learning", "Multi-agent Systems"] },
-  { title: "Frameworks & Libraries", icon: "stack", items: ["PyTorch", "TensorFlow", "scikit-learn", "LangChain", "LangGraph", "Hugging Face Transformers", "OpenCV", "XGBoost", "FastAPI", "spaCy", "Keras"] },
-  { title: "MLOps & Deployment", icon: "rocket", items: ["MLflow", "Airflow", "Docker", "Kubernetes", "AWS SageMaker", "Azure ML", "Databricks", "CI/CD Pipelines", "GitHub Actions", "GitLab CI/CD"] },
-  { title: "Data Engineering & Visualization", icon: "chart", items: ["pandas", "NumPy", "Apache Spark", "Snowflake", "Power BI", "Tableau", "Matplotlib", "Seaborn", "dbt"] },
-  { title: "Cloud & Tools", icon: "cloud", items: ["AWS EC2", "AWS S3", "AWS Lambda", "GCP Vertex AI", "GCP BigQuery", "Azure", "Terraform", "Linux / Unix"] },
+  { title: "Programming Languages", icon: "code", items: ["Python", "SQL", "R", "C++", "Java"] },
+  { title: "Machine Learning & AI", icon: "brain", items: ["Supervised Learning", "Unsupervised Learning", "Deep Learning", "Computer Vision", "Natural Language Processing", "Generative AI", "Large Language Models", "Reinforcement Learning"] },
+  { title: "Frameworks & Libraries", icon: "stack", items: ["TensorFlow", "PyTorch", "Keras", "scikit-learn", "Hugging Face Transformers", "LangChain", "OpenCV", "XGBoost", "spaCy"] },
+  { title: "MLOps & Deployment", icon: "rocket", items: ["MLflow", "Airflow", "Docker", "Kubernetes", "AWS SageMaker", "Azure ML", "Databricks", "CI/CD Pipelines"] },
+  { title: "Data Engineering & Visualization", icon: "chart", items: ["pandas", "NumPy", "Apache Spark", "SQL", "Tableau", "Power BI", "Matplotlib", "Seaborn"] },
+  { title: "Soft Skills & Collaboration", icon: "users", items: ["Cross-Functional Communication", "Problem Solving", "Agile Methodologies", "Leadership", "Technical Documentation"] },
 ];
 
 const EXPERIENCE = [
   {
-    role: "AI/ML Engineer",
-    company: "Devai Technologies",
-    location: "Pune, India",
-    period: "Jul 2021 – Jul 2024",
-    summary: "Owned ML systems end to end — from data ingestion and model fine-tuning to deployment, evaluation, and the infrastructure that kept everything running in production.",
+    role: "ML Engineer",
+    company: "Meta Platforms Inc.",
+    location: "Texas, USA",
+    period: "Jun 2025 – Aug 2025",
+    summary: "Built and deployed production ML for data-center reliability — predictive maintenance, real-time inference, and reinforcement-learning resource optimization.",
     points: [
-      "Developed a real-time telematics feature store using Apache Spark and Snowflake, ingesting 150K+ behavioral records daily and trimming data-processing overhead by 40% while improving downstream model accuracy.",
-      "Fine-tuned EfficientNet-based computer-vision models through 30+ systematic ablation studies, achieving 84.12% classification accuracy across 200 categories and surpassing the pre-training baseline by 12%.",
-      "Engineered an automated ML retraining system with Airflow and MLflow — scheduling drift-triggered retraining, versioning experiment runs, and eliminating 35% of model-degradation incidents across 24 release cycles.",
-      "Constructed an end-to-end model-evaluation framework with A/B testing, anomaly alerting, and precision / recall / F1 tracking across 8 KPIs, eliminating 35% of post-deployment failures before they reached production.",
-      "Deployed a transformer-based NLP classification platform on AWS with Kubernetes, serving text-extraction and intent-classification models at sub-300ms latency with 99%+ uptime.",
-      "Built production LLM-powered pipelines using LangChain and RAG architectures (2023–2024), driving task error rate from 18% to under 4% while processing 1,000+ requests daily in production.",
-      "Shipped ML infrastructure tooling across Docker, Kubernetes, and CI/CD pipelines, establishing consistent deployment standards and improving sprint delivery velocity by 30%.",
+      "Developed and deployed AI-driven predictive-maintenance models using Python, TensorFlow, and AWS SageMaker, improving equipment uptime by 21%.",
+      "Implemented real-time ML pipelines for sensor-data analysis, reducing inference latency by 30% through model compression and GPU optimization.",
+      "Collaborated with cross-functional software-engineering teams to integrate computer-vision and anomaly-detection models into data-center monitoring and automated infrastructure-inspection systems.",
+      "Built MLOps workflows with Docker, Kubernetes, and MLflow, cutting model deployment time by 40% while ensuring reproducibility and compliance with Meta's production ML standards.",
+      "Spearheaded reinforcement-learning–based resource optimization for large-scale distributed computing workloads, improving GPU and compute-resource utilization by 15% while reducing infrastructure costs.",
     ],
-    tech: ["Apache Spark", "Snowflake", "EfficientNet", "PyTorch", "Airflow", "MLflow", "LangChain", "RAG", "AWS", "Kubernetes", "Docker", "CI/CD"],
+    tech: ["Python", "TensorFlow", "AWS SageMaker", "Docker", "Kubernetes", "MLflow", "Reinforcement Learning", "Computer Vision"],
+  },
+  {
+    role: "AI Engineer",
+    company: "NVIDIA Corporation",
+    location: "India",
+    period: "Jun 2023 – Jun 2024",
+    summary: "Fine-tuned LLMs and built conversational AI and recommendation systems in production, serving 100K+ active users at high availability.",
+    points: [
+      "Designed and fine-tuned large language models (LLMs) for content moderation and personalization, boosting classification precision by 17%.",
+      "Leveraged PyTorch, Hugging Face Transformers, and LangChain to build conversational AI agents that enhanced user engagement by 25%.",
+      "Automated training and evaluation pipelines using Airflow and Ray, improving experiment turnaround time by 35%.",
+      "Partnered with product teams to translate business goals into scalable AI solutions, contributing to a Responsible AI framework.",
+      "Implemented real-time recommendation-system enhancements using graph neural networks (GNNs), driving a 10% increase in user session duration across pilot markets.",
+      "Collaborated with product, engineering, and data-science teams to productionize AI capabilities supporting 100K+ active users while achieving 99.9% service availability.",
+    ],
+    tech: ["PyTorch", "Hugging Face Transformers", "LangChain", "Airflow", "Ray", "GNNs", "LLMs"],
+  },
+  {
+    role: "ML Engineer",
+    company: "IBM Corporation",
+    location: "India",
+    period: "Aug 2021 – May 2023",
+    summary: "Delivered client-analytics ML and NLP automation, with MLOps on IBM Cloud and an anomaly-detection framework for financial compliance.",
+    points: [
+      "Built supervised and unsupervised ML models for client-analytics projects using Python, scikit-learn, and SQL, improving forecast accuracy by 22%.",
+      "Developed NLP-based document-classification systems with BERT and spaCy to automate data labeling, reducing manual processing time by 50%.",
+      "Implemented MLOps pipelines on IBM Cloud using Watson Studio, streamlining model deployment and monitoring.",
+      "Collaborated with data engineers and product managers to optimize AI model performance and explainability, driving successful client adoption.",
+      "Created an AI-driven anomaly-detection framework for financial-transaction monitoring, reducing false positives by 32% and enhancing compliance analytics for enterprise clients.",
+    ],
+    tech: ["Python", "scikit-learn", "SQL", "BERT", "spaCy", "IBM Watson Studio", "MLOps"],
   },
 ];
 
@@ -347,12 +377,12 @@ const CERTIFICATIONS = [
 ];
 
 const ACHIEVEMENTS = [
-  { metric: "84.12%", label: "Computer-vision accuracy across 200 categories — 12% above the pre-training baseline." },
-  { metric: "<4%", label: "Production LLM task error rate, driven down from 18% on 1,000+ daily requests." },
-  { metric: "150K+", label: "Behavioral records ingested daily by a real-time telematics feature store." },
-  { metric: "13+", label: "Google Cloud skill badges earned through the Facilitator Program." },
-  { metric: "99%+", label: "Uptime for a transformer NLP platform serving at sub-300ms latency." },
-  { metric: "30%", label: "Improvement in sprint delivery velocity from standardized ML infrastructure." },
+  { metric: "99.9%", label: "Service availability for AI capabilities supporting 100K+ active users at NVIDIA." },
+  { metric: "40%", label: "Reduction in model deployment time via Dockerized MLOps workflows at Meta." },
+  { metric: "50%", label: "Less manual processing time from BERT/spaCy document classification at IBM." },
+  { metric: "32%", label: "Fewer false positives in an AI financial-transaction anomaly-detection framework." },
+  { metric: "84.12%", label: "Computer-vision accuracy across 200 species in my EfficientNet GitHub project." },
+  { metric: "21%", label: "Higher equipment uptime from AI-driven predictive-maintenance models." },
 ];
 
 const NAV_LINKS = [
@@ -511,7 +541,7 @@ function Navbar({ theme, toggleTheme }) {
             className="w-9 h-9 grid place-items-center rounded-xl glass text-slate-700 dark:text-slate-200 hover:text-accent dark:hover:text-accent-soft transition-colors">
             <Icon name={theme === "dark" ? "sun" : "moon"} className="w-[18px] h-[18px]" />
           </button>
-          <a href={CONFIG.resume} download
+          <a href={CONFIG.resume} download={CONFIG.resumeDownloadName}
             className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-accent hover:bg-accent-deep text-white transition-colors shadow-lg shadow-accent/25">
             <Icon name="download" className="w-4 h-4" /> Résumé
           </a>
@@ -534,7 +564,7 @@ function Navbar({ theme, toggleTheme }) {
                   {label}
                 </button>
               ))}
-              <a href={CONFIG.resume} download className="mt-1 flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-accent text-white">
+              <a href={CONFIG.resume} download={CONFIG.resumeDownloadName} className="mt-1 flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-accent text-white">
                 <Icon name="download" className="w-4 h-4" /> Download Résumé
               </a>
             </div>
@@ -616,7 +646,7 @@ function Hero() {
 
           {/* Primary CTAs */}
           <motion.div initial="hidden" animate="show" custom={5} variants={fadeUp} className="mt-8 flex flex-wrap gap-3">
-            <a href={CONFIG.resume} download
+            <a href={CONFIG.resume} download={CONFIG.resumeDownloadName}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-accent hover:bg-accent-deep text-white shadow-lg shadow-accent/30 hover:shadow-accent/50 hover:-translate-y-0.5 transition-all">
               <Icon name="download" className="w-5 h-5" /> Download Résumé
             </a>
@@ -686,7 +716,7 @@ function Hero() {
 function About() {
   const cards = [
     { icon: "cap", title: "Education", text: "MS in Computer Science at UT Arlington (May 2026); BS from Mumbai University." },
-    { icon: "brain", title: "Technical Expertise", text: "LLMs & RAG, computer vision, deep learning, and end-to-end MLOps." },
+    { icon: "brain", title: "Technical Expertise", text: "LLM fine-tuning, computer vision, deep learning, GNNs, and end-to-end MLOps." },
     { icon: "target", title: "Career Goal", text: "AI / ML Engineer, Data Scientist, or Software Engineer roles with real ownership." },
     { icon: "spark", title: "What I Love", text: "Evaluation frameworks, structured outputs, and turning demos into dependable systems." },
   ];
@@ -723,7 +753,7 @@ function About() {
 /*  SKILLS                                                             */
 /* ================================================================== */
 function Skills() {
-  const marquee = ["Python", "PyTorch", "TensorFlow", "LangChain", "RAG", "AWS", "Docker", "Kubernetes", "MLflow", "Airflow", "Snowflake", "Spark", "FAISS", "scikit-learn", "FastAPI", "Hugging Face"];
+  const marquee = ["Python", "PyTorch", "TensorFlow", "LangChain", "Hugging Face", "AWS SageMaker", "Docker", "Kubernetes", "MLflow", "Airflow", "Ray", "Spark", "GNNs", "scikit-learn", "BERT", "spaCy"];
   return (
     <Section id="skills">
       <SectionTitle kicker="02 — Toolkit" title="Skills & Technologies"
@@ -1184,7 +1214,7 @@ function Contact() {
               </div>
             </motion.a>
           ))}
-          <motion.a href={CONFIG.resume} download initial="hidden" whileInView="show" viewport={{ once: true }} custom={4} variants={fadeUp}
+          <motion.a href={CONFIG.resume} download={CONFIG.resumeDownloadName} initial="hidden" whileInView="show" viewport={{ once: true }} custom={4} variants={fadeUp}
             className="block w-full text-center px-5 py-3.5 rounded-2xl font-semibold bg-accent hover:bg-accent-deep text-white shadow-lg shadow-accent/25 transition-colors">
             <span className="inline-flex items-center gap-2"><Icon name="download" className="w-5 h-5" /> Download Résumé</span>
           </motion.a>
